@@ -1,0 +1,82 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ADM</title>
+    <meta http-equiv="X-UA-Compatible" content="IE = 9" />
+    <meta http-equiv="X-UA-Compatible" content="IE = 8" />
+    <meta http-equiv="X-UA-Compatible" content="IE = 7" />
+    <meta http-equiv="X-UA-Compatible" content="IE = 6" />
+    <meta http-equiv="X-UA-Compatible" content="IE = 5" />
+    <meta http-equiv="X-UA-Compatible" content="IE = 9" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/modal.js"></script>
+    <link href="@Url.Content("~/Content/MeetingPlanner.css")" rel="stylesheet" type="text/css" />
+    <style>
+
+    </style>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="MyBackgroundimage">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="width:138px; height:10px;"><a class="navbar-brand" href="#myPage"><img src="..\Content\image\logo.png"></a></div>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Toplantı Ekle", "CreateMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li>
+                        @Html.ActionLink("Toplantıları Göster", "ShowMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li class=""><a href="#portfolio">Oturum Kapat</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="col-sm-2 sidenav">
+
+        <h1 class="vertical-text">@ViewBag.Title</h1>
+
+    </div>
+    <div class="col-sm-1 sidenav">
+
+    </div>
+    <div class="container body-content">
+        <div class="container col-sm-9 body-Meeting">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+    </script>
+
+
+</body>
+</html>

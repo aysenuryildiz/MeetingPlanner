@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MeetingPlannerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Confirmation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Confirmation1" Relationship="Self.FK_Confirmation_Confirmation" FromRole="Confirmation" ToRole="Confirmation1" />
+    <NavigationProperty Name="Confirmation2" Relationship="Self.FK_Confirmation_Confirmation" FromRole="Confirmation1" ToRole="Confirmation" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_Meeting_Confirmation" FromRole="Confirmation" ToRole="Meeting" />
+  </EntityType>
+  <EntityType Name="Meeting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="About" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Promoter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Treat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Room_ID" Type="Int32" Nullable="false" />
+    <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Confirmation_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Confirmation" Relationship="Self.FK_Meeting_Confirmation" FromRole="Meeting" ToRole="Confirmation" />
+    <NavigationProperty Name="Participant" Relationship="Self.FK_Meeting_Participant" FromRole="Meeting" ToRole="Participant" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Meeting_Room" FromRole="Meeting" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="Participant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Status_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_Meeting_Participant" FromRole="Participant" ToRole="Meeting" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Participant_Status" FromRole="Participant" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_Meeting_Room" FromRole="Room" ToRole="Meeting" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Participant" Relationship="Self.FK_Participant_Status" FromRole="Status" ToRole="Participant" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Confirmation_Confirmation">
+    <End Role="Confirmation" Type="Self.Confirmation" Multiplicity="1" />
+    <End Role="Confirmation1" Type="Self.Confirmation" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Confirmation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Confirmation1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meeting_Confirmation">
+    <End Role="Confirmation" Type="Self.Confirmation" Multiplicity="1" />
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Confirmation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Meeting">
+        <PropertyRef Name="Confirmation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meeting_Participant">
+    <End Role="Participant" Type="Self.Participant" Multiplicity="1" />
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Meeting">
+        <PropertyRef Name="Participant_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meeting_Room">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Meeting">
+        <PropertyRef Name="Room_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Participant_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Participant">
+        <PropertyRef Name="Status_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MEETINGPLANNEREntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Confirmation" EntityType="Self.Confirmation" />
+    <EntitySet Name="Meeting" EntityType="Self.Meeting" />
+    <EntitySet Name="Participant" EntityType="Self.Participant" />
+    <EntitySet Name="Room" EntityType="Self.Room" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="UserType" EntityType="Self.UserType" />
+    <AssociationSet Name="FK_Confirmation_Confirmation" Association="Self.FK_Confirmation_Confirmation">
+      <End Role="Confirmation" EntitySet="Confirmation" />
+      <End Role="Confirmation1" EntitySet="Confirmation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meeting_Confirmation" Association="Self.FK_Meeting_Confirmation">
+      <End Role="Confirmation" EntitySet="Confirmation" />
+      <End Role="Meeting" EntitySet="Meeting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meeting_Participant" Association="Self.FK_Meeting_Participant">
+      <End Role="Participant" EntitySet="Participant" />
+      <End Role="Meeting" EntitySet="Meeting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meeting_Room" Association="Self.FK_Meeting_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Meeting" EntitySet="Meeting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Participant_Status" Association="Self.FK_Participant_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Participant" EntitySet="Participant" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

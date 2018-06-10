@@ -1,0 +1,71 @@
+﻿@model MeetingPlanner.Models.Room
+@using MeetingPlanner.Models
+@{
+    ViewBag.Title = "AddRoom";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    MeetingPlannerEntities db = new MeetingPlannerEntities();
+
+    var list = db.Room.ToList();
+
+}
+
+
+<div class="row" style="padding-top:50px;">
+    <div class="col-lg-3 col-md-3" style="text-align:left"></div>
+    <div class="col-lg-9 col-md-9" style="margin-top: 50px;color:white; ">
+
+
+        @*salon ekleme *@
+        @using (Html.BeginForm("CreateRoom", "Admin", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <label name="Name" type="text" value="" style="margin-top:18px;">
+
+                        @Html.TextBoxFor(x => x.Name, new { @placeholder = "SALON İSMİ GİRİNİZ: " })<br />
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label name="Capacity" type="text" value="" style="margin-top:18px;">
+                        @Html.TextBoxFor(x => x.Capacity, new { @placeholder = "KAPASİTE GİRİNİZ: " })<br />
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <p>
+                        <input type="submit" class="btn-info " value="EKLE" />
+                    </p>
+                </div>
+
+            </div>
+
+        }
+
+        <table class="table" style="background-color:#222222;opacity:0.8;">
+            <thead>
+                <tr>
+                    <th>SALON İSMİ</th>
+                    <th>KAPASİTESİ</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in list)
+                {
+                    <tr>
+                        <td contenteditable="true"> @item.Name</td>
+                        <td>@item.Capacity</td>
+
+                        <td>
+                            @Html.ActionLink("DÜZENLE", "Edit", new { id = item.ID }) |
+
+                            @Html.ActionLink("SİL", "DeleteRoom", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+    </div>

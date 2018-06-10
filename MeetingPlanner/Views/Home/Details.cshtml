@@ -1,0 +1,189 @@
+﻿@model MeetingPlanner.Models.Meeting
+@using MeetingPlanner.Models;
+@{
+    ViewBag.Title = Model.Room.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MeetingPlannerEntities db = new MeetingPlannerEntities();
+
+    var innerp = Model.ParticipantInner.ToUpper().Split(',');
+    var outerp = Model.ParticipantOuter.ToUpper().Split(',');
+}
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="MyBackgroundimage">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="width:138px; height:10px;"><a class="navbar-brand" href="#myPage"><img src="~/Content/image/logo.png"></a></div>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Toplantı Ekle", "CreateMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li>
+                        @Html.ActionLink("Toplantıları Göster", "ShowMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li class=""><a href="#portfolio">Oturum Kapat</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+ 
+  
+        <div class="row">
+            <div class="col-lg-9 col-md-9" style="margin-top: 50px;color:white; ">
+
+                <div class="container">
+                    <div class="row">
+                        <h1 class="baslik col-lg-12" style="text-align:center">
+                            @Model.About
+                        </h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <h2>
+                                @Model.BeginDate
+                            </h2>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1">
+                            <h2>-</h2>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <h2>
+                                @Model.EndDate
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="row" style=" margin-top: 50px; color:black">
+                        <div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal1">İÇ KATILIMCI</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal1" role="dialog" style="text-align:center">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">KATILIMCI LİSTESİ</h4>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-5" style="text-align:center">
+                                                    <div class="modal-body" style="left: 170px;">
+
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <table class="table" id="table">
+                                                                    <thead>
+
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var item in innerp)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@item</td>
+
+
+                                                                            </tr>
+                                                                        }
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                                <hr>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <div class="modal-footer">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                        <div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">DIŞ KATILIMCI</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title text-center">KATILIMCI LİSTESİ</h4>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-5" style="text-align:center">
+                                                    <div class="modal-body" style="left: 170px;">
+
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <table class="table" id="table">
+                                                                    <thead>
+
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var value in outerp)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@value</td>
+
+
+                                                                            </tr>
+                                                                        }
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                                <hr>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <div class="modal-footer">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>

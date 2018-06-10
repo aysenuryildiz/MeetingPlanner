@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYDEM</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9">
+    @Styles.Render("~/Content")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+
+    <link rel="stylesheet" href="~/Assets/css/documenter_style.css" media="all">
+    <link rel="stylesheet" href="~/Assets/css/assets.css">
+    @*<link rel="stylesheet" href="~/Assets/css/prettify.css" media="screen">*@
+    <script src="~/Assets/js/prettify.js"></script>
+
+    <link href="@Url.Content("~/Content/MeetingPlanner.css")" rel="stylesheet" type="text/css" />
+
+    <script src="~/Assets/js/jquery.js"></script>
+
+    <script src="~/Assets/js/jquery.scrollTo.js"></script>
+    <script src="~/Assets/js/jquery.easing.js"></script>
+
+    <script>document.createElement('section'); var duration = '20', easing = 'swing';</script>
+    <script src="~/Assets/js/script.js"></script>
+
+
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="MyBackgroundimage">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="width:138px; height:10px;"><a class="navbar-brand" href="#myPage"><img src="..\Content\image\logo.png"></a></div>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href="#about">Toplantı Ekle</a></li>
+                    <li class=""><a href="#services">Toplantıları Göster</a></li>
+                    <li class=""><a href="#portfolio">Oturum AÇ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="documenter_sidebar" style="color:white">
+
+        <ul id="documenter_nav">
+            <li>
+                @Html.ActionLink("TOPLANTI EKLE", "CreateMeeting", "Home")
+                @Html.AntiForgeryToken()
+            </li>
+            <li>
+                @Html.ActionLink("SALON EKLE", "AddRoom", "Admin")
+                @Html.AntiForgeryToken()
+            </li>
+            <li>
+                @Html.ActionLink("KULLANICI AYARLARI", "UserSettings", "Admin")
+                @Html.AntiForgeryToken()
+            </li>
+            <li>
+                @Html.ActionLink("TOPLANTILARI GÖSTER", "ShowMeeting", "Home")
+                @Html.AntiForgeryToken()
+            </li>
+
+        </ul>
+        <div id="documenter_copyright">
+            ADM ELEKTRİK DAĞITIM AŞ.<br>
+
+        </div>
+    </div>
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="container body-content">
+        <div class="container col-sm-8 body-Meeting">
+            @RenderBody()
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

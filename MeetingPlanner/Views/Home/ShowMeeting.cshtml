@@ -1,0 +1,118 @@
+﻿@model List<MeetingPlanner.Models.Meeting>
+    @using MeetingPlanner.Models;
+@{  
+    ViewBag.Title = "ShowMeeting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MeetingPlannerEntities db = new MeetingPlannerEntities();
+    var list = db.Room.ToList();
+    var listm = db.Meeting.ToList();
+}
+<script src="~/Scripts/modal.js"></script>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="MyBackgroundimage">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="width:138px; height:10px;"><a class="navbar-brand" href="#myPage"><img src="..\Content\image\logo.png"></a></div>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Toplantı Ekle", "CreateMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li>
+                        @Html.ActionLink("Toplantıları Göster", "ShowMeeting", "Home")
+                        @Html.AntiForgeryToken()
+                    </li>
+                    <li class=""><a href="#portfolio">Oturum Kapat</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-lg-2 col-md-2" style="text-align:left"></div>
+        <div class="col-lg-10 col-md-10" style="margin-top: 50px;color:white; ">
+            
+
+                <select class="form-control" name="id">
+                    <option>Salon Seçiniz</option>
+                    @foreach (var item in db.Room)
+                    {
+                        <option name="id" value="@item.Name">@item.Name </option>
+
+
+                    }
+
+                </select>
+           
+            <div style="background-color:#222222;opacity:0.8;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>TOPLANTI    İSMİ</th>
+                            <th>DÜZENLEYİCİ</th>
+                            <th>BAŞLANGIÇ TARİHİ</th>
+                            <th>BİTİŞ TARİHİ</th>
+                            <th>ONAY DURUMU</th>
+                            <th>İŞLEMLER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @if (listm==null)
+                       {
+                            <tr>Sistemde Kayıtlı Toplantı Bulunmamaktadır..</tr>
+                       }
+                       else
+	                    {
+                        foreach (var item in listm)
+                        {
+                            <tr>
+                                <td>@item.About</td>
+                                <td>@item.Promoter</td>
+                                <td>@item.BeginDate</td>
+                                <td>@item.EndDate</td>
+                                <td>@item.Confirmation.Type</td>
+                                <td>
+                                    @Html.ActionLink("DETAY", "Details", new { id = item.ID }) 
+                                  @if (item.Confirmation_ID==1)
+                                  {
+                                    <br /> 
+                                    @Html.ActionLink("ONAY", "Accept", new { id = item.ID })
+                                      <br />
+                                     
+                                      
+                                    @Html.ActionLink("RED", "Declined", new { id = item.ID }) 
+	                                }
+                                    @if (item.Confirmation_ID ==2)
+                                    {
+                                        <br />
+                                         @Html.ActionLink("RED", "Declined", new { id = item.ID })
+                                    }
+
+
+                                </td>
+                            </tr>
+                        }
+                    	}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $('#myddl li a').on('click', function () {
+            $('.btn:first-child').text($(this).text());
+            $('.btn:first-child').val($(this).text());
+        });
+
+    </script>
+</body>

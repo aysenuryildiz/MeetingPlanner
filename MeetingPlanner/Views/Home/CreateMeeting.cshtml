@@ -1,0 +1,192 @@
+﻿
+@model MeetingPlanner.Models.Meeting
+@using MeetingPlanner.Models;
+@{
+    ViewBag.Title = "Create Meeting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Load jQuery and bootstrap datepicker scripts -->
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+
+<style>
+   .mylabel{
+       color:black;
+   }
+        
+    
+</style>
+
+<body>
+
+    <div>
+
+        @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+        {
+
+            <div class="row">
+                <div class="col-lg-3 col-md-3" style="text-align:left"></div>
+                <div class="col-lg-9 col-md-9" style="margin-top: 50px;color:white; ">
+                    <div class="container">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+
+                                <table style="width:600px;height:200px;" class="row">
+
+                                    @*TOPLANTI İSMİ*@
+                                    <tr>
+
+                                        <td class="col-lg-5">
+                                            <label class="control-label">TOPLANTI İSMİ: </label>
+
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.About)<br />
+                                                </label>
+                                            </p>
+                                        </td>
+                                    </tr>
+
+                                    @*DÜZENLEYİCİ*@
+                                    <tr>
+                                        <td class="col-lg-5">
+                                            <label class="ccontrol-label">DÜZENLEYİCİ: </label>
+
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.Promoter) <br />
+                                                </label>
+                                            </p>
+                                        </td>
+                                    </tr>
+
+
+
+                                    @*İÇ KATILIMCI*@
+                                    <tr>
+                                        <td class="col-lg-5">
+                                            <label class="control-label">İÇ KATILIMCI: </label>
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.ParticipantInner) <br />
+                                                </label>
+                                            </p>
+                                        </td>
+
+
+                                    </tr>
+
+                                    @*DIŞ KATILIMCI*@
+                                    <tr>
+                                        <td class="col-lg-5">
+                                            <label class="control-label">DIŞ KATILIMCI: </label>
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.ParticipantOuter) <br />
+                                                </label>
+                                            </p>
+                                        </td>
+
+
+                                    </tr>
+                                    @*SALON*@
+
+                                    <tr>
+                                        <td class="col-lg-5">
+                                            <label class="control-label">SALON: </label>
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.Room_ID) <br />
+                                                </label>
+                                            </p>
+                                    </tr>
+
+                                    @*@*TOPLANTI TARİHİ*@
+
+                                    <tr>
+
+                                        <td class="col-lg-5">
+                                            <label class="control-label">TOPLANTI TARİHİ</label>
+                                        </td>
+
+                                        <td class="col-lg-5 col-md-5 col-sm-12" style="padding-left:0px;">
+                                            <p>
+                                                <label class="col-lg-5 col-sm-12 mylabel" style="padding-left:0px;">
+                                                    @Html.TextBoxFor(x => x.BeginDate, new { type = "datetime-local" })
+                                                </label>
+                                            </p>
+                                        </td>
+                                        <td class=" col-lg-2 col-md-2" style="padding-left:0px;">
+                                            <p>
+                                                <label class="col-lg-2 col-sm-12" style="padding-left:0px;">
+
+                                                </label>
+                                            </p>
+                                        </td>
+                                        <td class="col-lg-5 col-md-5 col-sm-12" style="padding-left:0px;">
+                                            <p>
+                                                <label class="col-lg-2 col-sm-12 mylabel" style="padding-left:0px;">
+                                                    @Html.TextBoxFor(x => x.EndDate, new { type = "datetime-local" })
+                                                </label>
+                                            </p>
+                                        </td>
+
+
+
+                                    </tr>
+
+
+                                    @*İKRAM*@
+                                    <tr>
+                                        <td class="col-lg-5">
+                                            <label class="control-label">İKRAMLAR: </label>
+                                        </td>
+                                        <td class=" col-lg-5" style="padding-left:0px;">
+                                            <p>
+                                                <label class="mylabel">
+                                                    @Html.TextBoxFor(x => x.Treat) <br />
+                                                </label>
+                                            </p>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td colspan="2" style="Text-align:right;">
+
+                                            <button type="submit" class="btn btn-success">TALEP GÖNDER</button>
+
+
+                                        </td>
+                                        <td colspan="2" style="text-align:center">
+                                            <button type="reset" class="btn btn-success">TEMİZLE</button>
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+</body>
+ 
